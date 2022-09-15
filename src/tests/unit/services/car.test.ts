@@ -67,7 +67,7 @@ describe('Car Service', () => {
 
     it('trying to get one car with nonexistent id', async () => {
       const result = carService.readOne(nonexistentId);
-      await expect(result).to.be.rejectedWith(HttpError, errorMessages.NotFound);
+      await expect(result).to.be.rejectedWith(HttpError, errorMessages.ObjectNotFound);
     });
 
     it('trying to get one car with incorrect id', async () => {
@@ -84,7 +84,7 @@ describe('Car Service', () => {
 
     it('trying to update a car with nonexistent id', async () => {
       const result = carService.update(nonexistentId, carMock);
-      await expect(result).to.be.rejectedWith(errorMessages.NotFound);
+      await expect(result).to.be.rejectedWith(errorMessages.ObjectNotFound);
     });
 
     it('trying to update a car with incorrect id', async () => {
@@ -106,7 +106,7 @@ describe('Car Service', () => {
 
     it('trying to delete a car with nonexistent id', async () => {
       const result = carService.delete(nonexistentId);
-      await expect(result).to.be.rejectedWith(errorMessages.NotFound);
+      await expect(result).to.be.rejectedWith(errorMessages.ObjectNotFound);
     });
 
     it('trying to delete a car with incorrect id', async () => {
