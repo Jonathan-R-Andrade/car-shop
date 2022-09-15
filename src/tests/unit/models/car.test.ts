@@ -3,18 +3,17 @@ import chaiAsPromised from 'chai-as-promised';
 import sinon from 'sinon';
 import CarModel from '../../../models/Car';
 import { Model } from 'mongoose';
+import { errorMessages, InvalidMongoId } from '../../mocks/mocks';
 import {
   carMock,
   carMockWithId,
   carsMockWithId,
 } from '../../mocks/carMock';
-import { errorCatalog } from '../../../errors/HttpErrorCatalog';
 
 chai.use(chaiAsPromised);
 
 describe('Car Model', () => {
   const carModel = new CarModel();
-  const invalidId = 'abc123';
 
   before(() => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
@@ -49,8 +48,8 @@ describe('Car Model', () => {
     });
 
     it('trying to get one car with incorrect id', async () => {
-      const result = carModel.readOne(invalidId);
-      await expect(result).to.be.rejectedWith(errorCatalog.InvalidMongoId.message);
+      const result = carModel.readOne(InvalidMongoId);
+      await expect(result).to.be.rejectedWith(errorMessages.InvalidMongoId);
     });
   });
 
@@ -61,8 +60,8 @@ describe('Car Model', () => {
     });
 
     it('trying to update a car with incorrect id', async () => {
-      const result = carModel.update(invalidId, carMock);
-      await expect(result).to.be.rejectedWith(errorCatalog.InvalidMongoId.message);
+      const result = carModel.update(InvalidMongoId, carMock);
+      await expect(result).to.be.rejectedWith(errorMessages.InvalidMongoId);
     });
   });
 
@@ -73,8 +72,8 @@ describe('Car Model', () => {
     });
 
     it('trying to delete a car with incorrect id', async () => {
-      const result = carModel.delete(invalidId);
-      await expect(result).to.be.rejectedWith(errorCatalog.InvalidMongoId.message);
+      const result = carModel.delete(InvalidMongoId);
+      await expect(result).to.be.rejectedWith(errorMessages.InvalidMongoId);
     });
   });
 });
