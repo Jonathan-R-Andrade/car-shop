@@ -14,12 +14,14 @@ class CarService implements IService<ICar> {
   public async create(obj: ICar): Promise<ICar> {
     const parsed = CarZodSchema.safeParse(obj);
     if (!parsed.success) throw parsed.error;
+
     return this._car.create(parsed.data);
   }
 
   public async readOne(id: string): Promise<ICar> {
     const car = await this._car.readOne(id);
     if (!car) throw new HttpError(errorCatalog.NotFound);
+
     return car;
   }
 
@@ -28,8 +30,12 @@ class CarService implements IService<ICar> {
   }
 
   public async update(id: string, car: ICar): Promise<ICar> {
-    const result = await this._car.update(id, car);
+    const parsed = CarZodSchema.safeParse(car);
+    if (!parsed.success) throw parsed.error;
+
+    const result = await this._car.update(id, parsed.data);
     if (!result) throw new HttpError(errorCatalog.NotFound);
+
     return result;
   }
 
