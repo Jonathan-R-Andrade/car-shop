@@ -20,7 +20,7 @@ class CarService implements IService<ICar> {
 
   public async readOne(id: string): Promise<ICar> {
     const car = await this._car.readOne(id);
-    if (!car) throw new HttpError(errorCatalog.NotFound);
+    if (!car) throw new HttpError(errorCatalog.ObjectNotFound);
 
     return car;
   }
@@ -34,14 +34,14 @@ class CarService implements IService<ICar> {
     if (!parsed.success) throw parsed.error;
 
     const result = await this._car.update(id, parsed.data);
-    if (!result) throw new HttpError(errorCatalog.NotFound);
+    if (!result) throw new HttpError(errorCatalog.ObjectNotFound);
 
     return result;
   }
 
   public async delete(id: string): Promise<void> {
     const result = await this._car.delete(id);
-    if (!result) throw new HttpError(errorCatalog.NotFound);
+    if (!result) throw new HttpError(errorCatalog.ObjectNotFound);
   }
 }
 

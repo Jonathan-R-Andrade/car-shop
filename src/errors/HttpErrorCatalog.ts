@@ -2,7 +2,7 @@ import HttpStatus from '../enums/HttpStatus';
 
 export enum ErrorTypes {
   InvalidMongoId = 'InvalidMongoId',
-  NotFound = 'NotFound',
+  ObjectNotFound = 'ObjectNotFound',
 }
 
 export type ErrorResponseObject = {
@@ -16,11 +16,11 @@ export type ErrorCatalog = {
 
 export const errorCatalog: ErrorCatalog = {
   InvalidMongoId: {
-    message: 'Id must be a 24 characters hexadecimal',
+    message: 'Id must have 24 hexadecimal characters',
     httpStatus: HttpStatus.BAD_REQUEST,
   },
-  NotFound: {
-    message: 'Not Found',
+  ObjectNotFound: {
+    message: 'Object not found',
     httpStatus: HttpStatus.NOT_FOUND,
   },
 };
