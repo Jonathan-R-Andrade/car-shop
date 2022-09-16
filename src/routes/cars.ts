@@ -13,5 +13,6 @@ carsRoute.post('/', (req, res) => carController.create(req, res));
 carsRoute.get('/', (req, res) => carController.read(req, res));
 carsRoute.get('/:id', (req, res) => carController.readOne(req, res));
 carsRoute.put('/:id', (req, res) => carController.update(req, res));
+carsRoute.delete('/:id', (req, res) => carController.delete(req, res));
 
 export default carsRoute;
