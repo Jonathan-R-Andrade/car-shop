@@ -17,12 +17,12 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async read(): Promise<T[]> {
-    return this._model.find().select('-__v');
+    return this._model.find({}, { __v: 0 });
   }
 
   public async readOne(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) throw new HttpError(errorCatalog.InvalidMongoId);
-    return this._model.findById(id).select('-__v');
+    return this._model.findById(id, { __v: 0 });
   }
 
   public async update(id: string, obj: T): Promise<T | null> {
@@ -30,13 +30,13 @@ abstract class MongoModel<T> implements IModel<T> {
     return this._model.findByIdAndUpdate(
       id,
       obj as UpdateQuery<T>,
-      { new: true },
-    ).select('-__v');
+      { new: true, projection: { __v: 0 } },
+    );
   }
 
   public async delete(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) throw new HttpError(errorCatalog.InvalidMongoId);
-    return this._model.findByIdAndDelete(id).select('-__v');
+    return this._model.findByIdAndDelete(id, { projection: { __v: 0 } });
   }
 }
 
