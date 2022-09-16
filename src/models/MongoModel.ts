@@ -11,16 +11,18 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async create(obj: T): Promise<T> {
-    return this._model.create({ ...obj });
+    const createdCar = (await this._model.create({ ...obj }));
+    createdCar.__v = undefined;
+    return createdCar;
   }
 
   public async read(): Promise<T[]> {
-    return this._model.find();
+    return this._model.find().select('-__v');
   }
 
   public async readOne(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) throw new HttpError(errorCatalog.InvalidMongoId);
-    return this._model.findById(id);
+    return this._model.findById(id).select('-__v');
   }
 
   public async update(id: string, obj: T): Promise<T | null> {
@@ -29,12 +31,12 @@ abstract class MongoModel<T> implements IModel<T> {
       id,
       obj as UpdateQuery<T>,
       { new: true },
-    );
+    ).select('-__v');
   }
 
   public async delete(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) throw new HttpError(errorCatalog.InvalidMongoId);
-    return this._model.findByIdAndDelete(id);
+    return this._model.findByIdAndDelete(id).select('-__v');
   }
 }
 
