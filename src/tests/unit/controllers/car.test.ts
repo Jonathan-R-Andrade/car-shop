@@ -11,7 +11,7 @@ import {
   carMockWithoutModel,
   carsMockWithId,
 } from '../../mocks/carMock';
-import { errorMessages, InvalidMongoId, nonexistentId } from '../../mocks/mocks';
+import { errorMessages, InvalidMongoId } from '../../mocks/mocks';
 
 chai.use(chaiAsPromised);
 
