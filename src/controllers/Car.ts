@@ -31,4 +31,14 @@ export default class CarController {
     const car = await this._service.readOne(id);
     return res.status(HttpStatus.OK).json(car);
   }
+
+  public async update(
+    req: Request,
+    res: Response<ICar>,
+  ) {
+    const { id } = req.params;
+    const car = req.body;
+    const updatedCar = await this._service.update(id, car);
+    return res.status(HttpStatus.OK).json(updatedCar);
+  }
 }
