@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.3",
   "info": {
     "title": "Car Shop",
     "description": "API para gerenciamento de uma concessionária de veículos.",
@@ -10,5 +10,577 @@
       "url": "http://localhost:3001",
       "description": "Servidor Local"
     }
-  ]
+  ],
+  "paths": {
+    "/cars": {
+      "get": {
+        "tags": ["Carros"],
+        "summary": "Listar os carros",
+        "description": "Retorna um `array` com todos os carros cadastrados.",
+        "responses": {
+          "200": {
+            "description": "Carros encontrados com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Carro"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Carros"],
+        "summary": "Cadastrar um carro",
+        "description": "Cadastra um novo carro.",
+        "requestBody": {
+          "description": "Objeto `JSON` com os dados do carro a ser cadastrado.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Carro"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Carro cadastrado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Carro"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/DadosInvalidos"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      }
+    },
+    "/cars/{vehicleId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/vehicleId"
+        }
+      ],
+      "get": {
+        "tags": ["Carros"],
+        "summary": "Buscar um carro",
+        "description": "Retorna um carro específico.",
+        "responses": {
+          "200": {
+            "description": "Carro encontrado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Carro"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ParametroInvalido"
+          },
+          "404": {
+            "$ref": "#/components/responses/VeiculoNaoEncontrado"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Carros"],
+        "summary": "Atualizar um carro",
+        "description": "Atualiza um carro específico.",
+        "requestBody": {
+          "description": "Objeto `JSON` com os dados do carro a ser atualizado.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Carro"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Carro atualizado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Carro"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/RequisicaoInvalida"
+          },
+          "404": {
+            "$ref": "#/components/responses/VeiculoNaoEncontrado"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Carros"],
+        "summary": "Deletar um carro",
+        "description": "Deleta um carro específico.",
+        "responses": {
+          "204": {
+            "description": "Carro deletado com sucesso."
+          },
+          "400": {
+            "$ref": "#/components/responses/ParametroInvalido"
+          },
+          "404": {
+            "$ref": "#/components/responses/VeiculoNaoEncontrado"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      }
+    },
+    "/motorcycles": {
+      "get": {
+        "tags": ["Motocicletas"],
+        "summary": "Listar as motocicletas",
+        "description": "Retorna um `array` com todas as motocicletas cadastradas.",
+        "responses": {
+          "200": {
+            "description": "Motocicletas encontradas com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Motocicleta"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Motocicletas"],
+        "summary": "Cadastrar uma motocicleta",
+        "description": "Cadastra uma nova motocicleta.",
+        "requestBody": {
+          "description": "Objeto `JSON` com os dados da motocicleta a ser cadastrada.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Motocicleta"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Motocicleta cadastrada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Motocicleta"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/DadosInvalidos"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      }
+    },
+    "/motorcycles/{vehicleId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/vehicleId"
+        }
+      ],
+      "get": {
+        "tags": ["Motocicletas"],
+        "summary": "Buscar uma motocicleta",
+        "description": "Retorna uma motocicleta específica.",
+        "responses": {
+          "200": {
+            "description": "Motocicleta encontrada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Motocicleta"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ParametroInvalido"
+          },
+          "404": {
+            "$ref": "#/components/responses/VeiculoNaoEncontrado"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Motocicletas"],
+        "summary": "Atualizar uma motocicleta",
+        "description": "Atualiza uma motocicleta específica.",
+        "requestBody": {
+          "description": "Objeto `JSON` com os dados da motocicleta a ser atualizada.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Motocicleta"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Motocicleta atualizada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Motocicleta"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/RequisicaoInvalida"
+          },
+          "404": {
+            "$ref": "#/components/responses/VeiculoNaoEncontrado"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Motocicletas"],
+        "summary": "Deletar uma motocicleta",
+        "description": "Deleta uma motocicleta específica.",
+        "responses": {
+          "204": {
+            "description": "Motocicleta deletada com sucesso."
+          },
+          "400": {
+            "$ref": "#/components/responses/ParametroInvalido"
+          },
+          "404": {
+            "$ref": "#/components/responses/VeiculoNaoEncontrado"
+          },
+          "500": {
+            "$ref": "#/components/responses/ErroDesconhecido"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "interfaces": {
+      "Veiculo": {
+        "invisible": true,
+        "type": "object",
+        "properties": {
+          "_id": {
+            "description": "Identificador único do veículo.",
+            "type": "string",
+            "format": "ObjectID",
+            "readOnly": true,
+            "minLength": 24,
+            "maxLength": 24,
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "model": {
+            "description": "Modelo do veículo.",
+            "type": "string",
+            "minLength": 3,
+            "example": "Modelo do veículo"
+          },
+          "year": {
+            "description": "Ano de fabricação do veículo. O valor máximo permitido é o ano atual.",
+            "type": "number",
+            "minimum": 1900,
+            "example": 2021
+          },
+          "color": {
+            "description": "Cor do veículo.",
+            "type": "string",
+            "minLength": 3,
+            "example": "preto"
+          },
+          "status": {
+            "description": "Define se o veículo está disponível para compra. `true` para disponível e `false` para indisponível.",
+            "type": "boolean",
+            "example": true
+          },
+          "buyValue": {
+            "description": "Preço do veículo.",
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "example": 100000
+          }
+        },
+        "required": ["_id", "model", "year", "color", "buyValue"]
+      }
+    },
+    "schemas": {
+      "Carro": {
+        "allOf": [
+          { "$ref": "#/components/interfaces/Veiculo" },
+          {
+            "type": "object",
+            "properties": {
+              "doorsQty": {
+                "description": "Quantidade de portas do veículo.",
+                "type": "number",
+                "minimum": 2,
+                "maximum": 4,
+                "example": 4
+              },
+              "seatsQty": {
+                "description": "Quantidade de assentos do veículo.",
+                "type": "number",
+                "minimum": 2,
+                "maximum": 7,
+                "example": 5
+              }
+            },
+            "required": ["doorsQty", "seatsQty"]
+          }
+        ]
+      },
+      "Motocicleta": {
+        "allOf": [
+          { "$ref": "#/components/interfaces/Veiculo" },
+          {
+            "type": "object",
+            "properties": {
+              "category": {
+                "description": "Categoria do veículo.",
+                "type": "string",
+                "enum": ["Street", "Custom", "Trail"],
+                "example": "Street"
+              },
+              "engineCapacity": {
+                "description": "Cilindrada do veículo.",
+                "type": "number",
+                "minimum": 0,
+                "exclusiveMinimum": true,
+                "maximum": 2500,
+                "example": 750
+              }
+            },
+            "required": ["category", "engineCapacity"]
+          }
+        ]
+      },
+      "ErroDeValidacao": {
+        "description": "Descrição do erro de validação do objeto `JSON` enviado na requisição, pode conter propriedades adicionais dependendo do código do erro.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "Código do erro.",
+            "type": "string"
+          },
+          "message": {
+            "description": "Mensagem do erro.",
+            "type": "string"
+          },
+          "path": {
+            "description": "Caminho do erro.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "oneOf": [
+                {
+                  "description": "Nome de uma propriedade de um objeto.",
+                  "type": "string"
+                },
+                {
+                  "description": "Índice de um elemento de um array.",
+                  "type": "integer",
+                  "minimum": 0
+                }
+              ]
+            }
+          }
+        },
+        "minProperties": 3,
+        "additionalProperties": {
+          "description": "Propriedade adicional, pode ser qualquer valor: `string`, `number`, `boolean`, `array` ou `object`."
+        },
+        "required": ["code", "message", "path"],
+        "example": {
+          "code": "too_small",
+          "minimum": 3,
+          "type": "string",
+          "inclusive": true,
+          "message": "Should be at least 3 characters",
+          "path": ["model"]
+        }
+      },
+      "RepostaDeErro": {
+        "description": "Objeto com a propriedade `error` do tipo `string` ou `array` que descreve o erro.",
+        "type": "object",
+        "properties": {
+          "error": {
+            "oneOf": [
+              {
+                "description": "Motivo do erro.",
+                "type": "string",
+                "example": "Motivo do erro"
+              },
+              {
+                "description": "Array com objetos que descrevem os erros.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/components/schemas/ErroDeValidacao"
+                }
+              }
+            ]
+          }
+        },
+        "required": ["error"]
+      }
+    },
+    "parameters": {
+      "vehicleId": {
+        "in": "path",
+        "name": "vehicleId",
+        "description": "Identificador único do veículo.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "ObjectID",
+          "minLength": 24,
+          "maxLength": 24,
+          "example": "507f1f77bcf86cd799439011"
+        }
+      }
+    },
+    "responses": {
+      "RequisicaoInvalida": {
+        "description": "Código retornado quando:\n- Os dados do veículo não contém todas as propriedades necessárias (**erros de validação**).\n- Alguma propriedade do veículo não está no formato correto (**erros de validação**).\n- O `ID` do veículo não é um `ObjectID` válido (**outros erros**).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RepostaDeErro"
+            },
+            "examples": {
+              "ErrosDeValidacao": {
+                "$ref": "#/components/examples/ErrosDeValidacao"
+              },
+              "OutrosErros": {
+                "$ref": "#/components/examples/OutrosErros"
+              }
+            }
+          }
+        }
+      },
+      "ParametroInvalido": {
+        "description": "Parâmetro inválido.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RepostaDeErro"
+            }
+          }
+        }
+      },
+      "DadosInvalidos": {
+        "description": "Um ou mais dados do veículo são inválidos.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RepostaDeErro"
+            },
+            "examples": {
+              "ErrosDeValidacao": {
+                "$ref": "#/components/examples/ErrosDeValidacao"
+              }
+            }
+          }
+        }
+      },
+      "VeiculoNaoEncontrado": {
+        "description": "Veículo não encontrado.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RepostaDeErro"
+            }
+          }
+        }
+      },
+      "ErroDesconhecido": {
+        "description": "Código retornado quando:\n- Acontece algum erro desconhecido no servidor.\n- O objeto `JSON` enviado na requisição está com algum erro de sintaxe.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RepostaDeErro"
+            }
+          }
+        }
+      }
+    },
+    "examples": {
+      "ErrosDeValidacao": {
+        "summary": "erros de validação",
+        "value": {
+          "error": [
+            {
+              "code": "too_small",
+              "minimum": 3,
+              "type": "string",
+              "inclusive": true,
+              "message": "Should be at least 3 characters",
+              "path": ["model"]
+            }
+          ]
+        }
+      },
+      "OutrosErros": {
+        "summary": "outros erros",
+        "value": {
+          "error": "Motivo do erro"
+        }
+      }
+    }
+  }
 }
