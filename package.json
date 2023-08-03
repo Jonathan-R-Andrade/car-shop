@@ -1,7 +1,7 @@
 {
   "name": "car-shop",
   "version": "1.0.0",
-  "description": "",
+  "description": "API for managing a vehicle dealership.",
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
@@ -10,6 +10,12 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
     "test:coverage": "nyc npm run test"
+  },
+  "author": "Jonathan R. Andrade",
+  "homepage": "https://github.com/Jonathan-R-Andrade/car-shop#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonathan-R-Andrade/car-shop.git"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "1.0.2",
