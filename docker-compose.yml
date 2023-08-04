@@ -3,27 +3,16 @@ version: "3"
 services:
   # Serviço que irá rodar o node
   node:
-    # Imagem base do container
-    image: node:16.14
+    # Caminho da Dockerfile
+    build: ./
     # Nome do container para facilitar execução
     container_name: car_shop
-    # Caminho da Dockerfile
-    build: ./ 
     # Mesmo que `docker run -t`
     tty: true
     # Mesmo que `docker run -i`
     stdin_open: true
-    # Substitui o comando padrão da imagem do node
-    command: bash
     # Restarta a imagem caso algo a faça parar
     restart: always
-    # Diretório padrão de execução
-    working_dir: /app
-    # Lista de volumes (diretórios) mapeados de fora para dentro do container
-    volumes:
-      # Monta o diretório atual, com todos os dados do projeto, 
-      # dentro do diretório /app
-      - ./:/app
     # Lista de serviços do qual este serviço depende
     depends_on:
       # Precisa do mongo funcionando antes de subir o node
@@ -31,22 +20,17 @@ services:
     # Lista de portas mapeadas de dentro para fora do container
     # na notação porta_de_fora:porta_de_dentro
     ports:
-      # Expõe a porta padrão da aplicação: altere aqui caso use outra porta
-      - 3001:3001
+      # Expõe a porta da aplicação
+      - ${PORT}:${PORT}
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/CarShop
+      - PORT=${PORT}
+      - MONGO_DB_URL=${MONGO_DB_URL}
 
   # Serviço que irá rodar o mongodb
   mongodb:
-    image: mongo:5.0.7
+    image: mongo:6.0.7
     container_name: car_shop_db
-    volumes:
-      - ./:/app
     restart: always
-    ports:
-      # Garanta que não haverá conflitos de porta com um mongodb que esteja
-      # rodando localmente
-      - 27017:27017
 
 # Lista de redes que os containeres irão utilizar
 networks:

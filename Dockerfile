@@ -1,11 +1,15 @@
-FROM node:16.14
+FROM node:16.20
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN ["npm", "i"] 
+RUN ["npm", "i"]
 
-COPY . .
+COPY tsconfig.json nyc.config.js ./
 
-CMD ["npm", "run", "dev"]
+COPY ./src ./src
+
+RUN ["npm", "run", "build"]
+
+CMD ["npm", "run", "start"]
