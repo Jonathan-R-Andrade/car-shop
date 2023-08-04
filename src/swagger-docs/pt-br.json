@@ -7,8 +7,13 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3001",
-      "description": "Servidor Local"
+      "url": "http://localhost:{port}",
+      "description": "Servidor Local",
+      "variables": {
+        "port": {
+          "default": "3001"
+        }
+      }
     }
   ],
   "paths": {
