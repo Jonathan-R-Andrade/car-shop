@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:{port}",
+      "url": "http://localhost:{port}/api/v1",
       "description": "Servidor Local",
       "variables": {
         "port": {
@@ -337,7 +337,7 @@
           },
           "year": {
             "description": "Ano de fabricação do veículo. O valor máximo permitido é o ano atual.",
-            "type": "number",
+            "type": "integer",
             "minimum": 1900,
             "example": 2021
           },
@@ -372,14 +372,14 @@
             "properties": {
               "doorsQty": {
                 "description": "Quantidade de portas do veículo.",
-                "type": "number",
+                "type": "integer",
                 "minimum": 2,
                 "maximum": 4,
                 "example": 4
               },
               "seatsQty": {
                 "description": "Quantidade de assentos do veículo.",
-                "type": "number",
+                "type": "integer",
                 "minimum": 2,
                 "maximum": 7,
                 "example": 5
@@ -403,9 +403,8 @@
               },
               "engineCapacity": {
                 "description": "Cilindrada do veículo.",
-                "type": "number",
-                "minimum": 0,
-                "exclusiveMinimum": true,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 2500,
                 "example": 750
               }
