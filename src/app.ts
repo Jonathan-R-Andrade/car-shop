@@ -6,13 +6,15 @@ import motorcyclesRoute from './routes/motorcyclesRoute';
 import swaggerDocsRoute from './routes/swaggerDocsRoute';
 
 const app = express();
+const api = express();
 
-app.use(express.json());
+api
+  .use(express.json())
+  .use('/docs', swaggerDocsRoute)
+  .use('/cars', carsRoute)
+  .use('/motorcycles', motorcyclesRoute)
+  .use(handleErrors);
 
-app.use('/docs', swaggerDocsRoute);
-app.use('/cars', carsRoute);
-app.use('/motorcycles', motorcyclesRoute);
-
-app.use(handleErrors);
+app.use('/api/v1', api);
 
 export default app;
