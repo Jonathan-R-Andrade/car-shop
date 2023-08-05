@@ -2,8 +2,8 @@ import 'express-async-errors';
 import express from 'express';
 import handleErrors from './middlewares/handleErrors';
 import carsRoute from './routes/cars';
-import motorcyclesRoute from './routes/motorcyclesRoute';
-import swaggerDocsRoute from './routes/swaggerDocsRoute';
+import motorcyclesRoute from './routes/motorcycles';
+import swaggerDocsRoute from './routes/docs';
 
 const app = express();
 const api = express();
